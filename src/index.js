@@ -14,8 +14,6 @@
  */
 const returnFirstArgument = param => param;
 
-returnFirstArgument(10);
-
 /*
  Задание 2:
 
@@ -32,8 +30,6 @@ returnFirstArgument(10);
  */
 const sumWithDefaults = (a, b = 100) => a + b;
 
-sumWithDefaults(10, 20);
-
 /*
  Задание 3:
 
@@ -43,8 +39,6 @@ sumWithDefaults(10, 20);
    returnFnResult(() => 'привет') вернет 'привет'
  */
 const returnFnResult = callback => callback();
-
-returnFnResult(() => 'привет');
 
 /*
  Задание 4:
@@ -61,11 +55,6 @@ returnFnResult(() => 'привет');
  */
 const returnCounter = (num = 0) => () => ++num;
 
-const f = returnCounter(10);
-
-f();
-f();
-
 /*
  Задание 5 *:
 
@@ -76,8 +65,6 @@ f();
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 const returnArgumentsArray = (...params) => params;
-
-returnArgumentsArray(1, 2, 3);
 
 /*
  Задание 6 *:
@@ -95,11 +82,5 @@ returnArgumentsArray(1, 2, 3);
    console.log(newSum()) выведет 6
  */
 const bindFunction = (callback, ...params) => () => callback(...params);
-
-const sum = (a, b) => a + b;
-
-const newSum = bindFunction(sum, 2, 4);
-
-newSum();
 
 export { returnFirstArgument, sumWithDefaults, returnArgumentsArray, returnFnResult, returnCounter, bindFunction };
