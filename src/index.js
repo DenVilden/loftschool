@@ -34,7 +34,7 @@ const map = (array, fn) => {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 const reduce = (array, fn, initial) => {
-    let current = initial ? 0 : 1;
+    const current = initial ? 0 : 1;
 
     initial = initial || array[0];
 
