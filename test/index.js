@@ -4,14 +4,7 @@ const nativeReduce = Array.prototype.reduce;
 
 import { assert } from 'chai';
 import { randomValue as random, randomNumberArray } from '../helper';
-import {
-    forEach,
-    map,
-    reduce,
-    upperProps,
-    slice,
-    createProxy
-} from '../src/index';
+import { forEach, map, reduce, upperProps, slice, createProxy } from '../src/index';
 
 describe('ДЗ 3 - объекты и массивы', () => {
     describe('forEach', () => {
@@ -87,7 +80,7 @@ describe('ДЗ 3 - объекты и массивы', () => {
             reduce(array, prev => {
                 assert.equal(prev, prevResult);
 
-                return prevResult = i++;
+                return (prevResult = i++);
             });
         });
 
