@@ -33,10 +33,8 @@ const map = (array, fn) => {
  Напишите аналог встроенного метода reduce для работы с массивами
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
-const reduce = (array, fn, initial) => {
-    const current = initial ? 0 : 1;
-
-    initial = initial || array[0];
+const reduce = (array, fn, initial = array[0]) => {
+    const current = initial === array[0] ? 1 : 0;
 
     for (let index = current; index < array.length; index++) {
         initial = fn(initial, array[index], index, array);
