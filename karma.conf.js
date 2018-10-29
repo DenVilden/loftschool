@@ -1,14 +1,12 @@
-process.env.CHROME_BIN = require('puppeteer').executablePath()
+process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function(config) {
     config.set({
         basePath: '',
         frameworks: ['mocha', 'chai'],
-        files: [
-            'test/**/*.js'
-        ],
+        files: ['test/**/*.js'],
         preprocessors: {
-            'test/**/*.js': ['webpack', 'sourcemap'],
+            'test/**/*.js': ['webpack', 'sourcemap']
         },
         webpack: require('./webpack.config.test'),
         webpackMiddleware: {

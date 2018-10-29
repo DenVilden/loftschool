@@ -8,7 +8,7 @@ export function randomValue(types, maxDepth = 2) {
     let type;
 
     if (types) {
-        types = Array.isArray(types) ? types : [types]
+        types = Array.isArray(types) ? types : [types];
     } else {
         types = allTypes;
     }
@@ -44,9 +44,9 @@ export function randomValue(types, maxDepth = 2) {
                 }
 
                 return array;
-            } else {
-                return randomValue(allTypes.slice(0, -2));
             }
+
+            return randomValue(allTypes.slice(0, -2));
         }
         case 'object': {
             if (depth < maxDepth) {
@@ -62,9 +62,9 @@ export function randomValue(types, maxDepth = 2) {
                 }
 
                 return object;
-            } else {
-                return randomValue(allTypes.slice(0, -2));
             }
+
+            return randomValue(allTypes.slice(0, -2));
         }
     }
 }
