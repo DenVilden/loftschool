@@ -38,7 +38,7 @@ const sumWithDefaults = (a, b = 100) => a + b;
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-const returnFnResult = callback => callback();
+const returnFnResult = fn => fn();
 
 /*
  Задание 4:
@@ -81,6 +81,6 @@ const returnArgumentsArray = (...params) => params;
 
    console.log(newSum()) выведет 6
  */
-const bindFunction = (callback, ...params) => () => callback(...params);
+const bindFunction = (fn, ...params) => () => fn(...params);
 
 export { returnFirstArgument, sumWithDefaults, returnArgumentsArray, returnFnResult, returnCounter, bindFunction };
