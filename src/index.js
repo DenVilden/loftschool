@@ -24,13 +24,13 @@ const isAllTrue = (array, fn) => {
         throw new Error('fn is not a function');
     }
 
-    let isValid;
-
     for (const iterator of array) {
-        isValid = fn(iterator);
+        if (!fn(iterator)) {
+            return false;
+        }
     }
 
-    return isValid;
+    return true;
 };
 
 /*
@@ -125,6 +125,7 @@ const calculator = (number = 0) => {
 
             return number;
         },
+
         dif(...params) {
             for (const iterator of params) {
                 number -= iterator;
@@ -132,9 +133,10 @@ const calculator = (number = 0) => {
 
             return number;
         },
+
         div(...params) {
             for (const iterator of params) {
-                if (!iterator || !number) {
+                if (!iterator) {
                     throw new Error('division by 0');
                 }
 
@@ -143,6 +145,7 @@ const calculator = (number = 0) => {
 
             return number;
         },
+
         mul(...params) {
             for (const iterator of params) {
                 number *= iterator;
