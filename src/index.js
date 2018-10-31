@@ -134,7 +134,7 @@ const calculator = (number = 0) => {
         },
         div(...params) {
             for (const iterator of params) {
-                if (!iterator) {
+                if (!iterator || !number) {
                     throw new Error('division by 0');
                 }
 
