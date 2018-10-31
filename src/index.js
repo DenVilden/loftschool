@@ -96,7 +96,7 @@ const slice = (array, from = 0, to = array.length) => {
 const createProxy = obj =>
     new Proxy(obj, {
         set(target, prop, value) {
-            return (target[prop] = value *= value);
+            return (target[prop] = value * value);
         }
     });
 
