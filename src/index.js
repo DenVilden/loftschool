@@ -1,5 +1,8 @@
 /* ДЗ 3 - работа с исключениями и отладчиком */
 
+const NOT_FUNC = 'fn is not a function';
+const EMPTY_ARRAY = 'empty array';
+
 /*
  Задание 1:
 
@@ -18,10 +21,10 @@
  */
 const isAllTrue = (array, fn) => {
     if (!array.length || !(array instanceof Array)) {
-        throw new Error('empty array');
+        throw new Error(EMPTY_ARRAY);
     }
     if (typeof fn !== 'function') {
-        throw new Error('fn is not a function');
+        throw new Error(NOT_FUNC);
     }
 
     for (const iterator of array) {
@@ -51,10 +54,10 @@ const isAllTrue = (array, fn) => {
  */
 const isSomeTrue = (array, fn) => {
     if (!array.length || !(array instanceof Array)) {
-        throw new Error('empty array');
+        throw new Error(EMPTY_ARRAY);
     }
     if (typeof fn !== 'function') {
-        throw new Error('fn is not a function');
+        throw new Error(NOT_FUNC);
     }
 
     for (const iterator of array) {
@@ -79,7 +82,7 @@ const isSomeTrue = (array, fn) => {
  */
 const returnBadArguments = (fn, ...params) => {
     if (typeof fn !== 'function') {
-        throw new Error('fn is not a function');
+        throw new Error(NOT_FUNC);
     }
 
     const badArguments = [];
