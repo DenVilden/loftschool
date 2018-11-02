@@ -122,39 +122,25 @@ const calculator = (number = 0) => {
 
     return {
         sum(...params) {
-            for (const iterator of params) {
-                number += iterator;
-            }
-
-            return number;
+            return params.reduce((prev, current) => prev + current, number);
         },
 
         dif(...params) {
-            for (const iterator of params) {
-                number -= iterator;
-            }
-
-            return number;
+            return params.reduce((prev, current) => prev - current, number);
         },
 
         div(...params) {
-            for (const iterator of params) {
-                if (!iterator) {
+            return params.reduce((prev, current) => {
+                if (!current) {
                     throw new Error('division by 0');
                 }
 
-                number /= iterator;
-            }
-
-            return number;
+                return prev / current;
+            }, number);
         },
 
         mul(...params) {
-            for (const iterator of params) {
-                number *= iterator;
-            }
-
-            return number;
+            return params.reduce((prev, current) => prev * current, number);
         }
     };
 };
