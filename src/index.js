@@ -200,12 +200,6 @@ const collectDOMStat = root => {
     return stat;
 };
 
-const div = document.createElement('div');
-
-div.innerHTML = '<div class="some-class-1"><b>привет!</b> <b class="some-class-1 some-class-2">loftschool</b></div>';
-
-collectDOMStat(div);
-
 /*
  Задание 8 *:
 
