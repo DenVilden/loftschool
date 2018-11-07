@@ -164,6 +164,14 @@ const collectDOMStat = root => {
                 stat.texts++;
             }
 
+            if (child.nodeType === 1) {
+                if (stat.tags.hasOwnProperty(child.tagName)) {
+                    stat.tags[child.tagName]++;
+                } else {
+                    stat.tags[child.tagName] = 1;
+                }
+            }
+
             if (child.classList) {
                 for (const className of child.classList) {
                     // Check if class exist
@@ -174,14 +182,6 @@ const collectDOMStat = root => {
                         // Set number of classes found to 1 if it doesnt
                         stat.classes[className] = 1;
                     }
-                }
-            }
-
-            if (child.tagName) {
-                if (stat.tags.hasOwnProperty(child.tagName)) {
-                    stat.tags[child.tagName]++;
-                } else {
-                    stat.tags[child.tagName] = 1;
                 }
             }
 
