@@ -120,16 +120,14 @@ const deleteTextNodes = where => {
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 const deleteTextNodesRecursive = where => {
-    if (!where.childNodes) {
-        return;
-    }
-
     for (const child of where.childNodes) {
         if (child.nodeType === 3) {
             child.textContent = '';
         }
 
-        deleteTextNodesRecursive(child);
+        if (child.hasChildNodes()) {
+            deleteTextNodesRecursive(child);
+        }
     }
 };
 
@@ -161,10 +159,6 @@ const collectDOMStat = root => {
     };
 
     const walkTheDOM = where => {
-        if (!where.childNodes) {
-            return;
-        }
-
         for (const child of where.childNodes) {
             if (child.nodeType === 3) {
                 stat.texts++;
@@ -191,7 +185,9 @@ const collectDOMStat = root => {
                 }
             }
 
-            walkTheDOM(child);
+            if (child.hasChildNodes()) {
+                walkTheDOM(child);
+            }
         }
     };
 
