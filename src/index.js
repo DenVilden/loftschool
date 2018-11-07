@@ -151,46 +151,46 @@ const deleteTextNodesRecursive = where => {
      texts: 3
    }
  */
-const collectDOMStat = root => {
-    const stat = { tags: {}, classes: {}, texts: 0 };
+const collectDOMStat = (root, stat = { tags: {}, classes: {}, texts: 0 }) => {
+    for (const child of root.childNodes) {
+        if (child.nodeType === 3) {
+            stat.texts++;
+        }
 
-    const walkTheDOM = where => {
-        for (const child of where.childNodes) {
-            if (child.nodeType === 3) {
-                stat.texts++;
-            }
-
-            if (child.nodeType === 1) {
-                if (stat.tags.hasOwnProperty(child.tagName)) {
-                    stat.tags[child.tagName]++;
-                } else {
-                    stat.tags[child.tagName] = 1;
-                }
-            }
-
-            if (child.classList) {
-                for (const className of child.classList) {
-                    // Check if class exist
-                    if (stat.classes.hasOwnProperty(className)) {
-                        // Start counting if it does
-                        stat.classes[className]++;
-                    } else {
-                        // Set number of classes found to 1 if it doesnt
-                        stat.classes[className] = 1;
-                    }
-                }
-            }
-
-            if (child.hasChildNodes()) {
-                walkTheDOM(child);
+        if (child.nodeType === 1) {
+            if (stat.tags.hasOwnProperty(child.tagName)) {
+                stat.tags[child.tagName]++;
+            } else {
+                stat.tags[child.tagName] = 1;
             }
         }
-    };
 
-    walkTheDOM(root);
+        if (child.classList) {
+            for (const className of child.classList) {
+                // Check if class exist
+                if (stat.classes.hasOwnProperty(className)) {
+                    // Start counting if it does
+                    stat.classes[className]++;
+                } else {
+                    // Set number of classes found to 1 if it doesnt
+                    stat.classes[className] = 1;
+                }
+            }
+        }
+
+        if (child.hasChildNodes()) {
+            collectDOMStat(child, stat);
+        }
+    }
 
     return stat;
 };
+
+const div = document.createElement('div');
+
+div.innerHTML = '<div class="some-class-1"><b>привет!</b> <b class="some-class-1 some-class-2">loftschool</b></div>';
+
+collectDOMStat(div);
 
 /*
  Задание 8 *:
