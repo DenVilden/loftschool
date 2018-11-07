@@ -26,7 +26,7 @@ const createDivWithText = text => {
  Пример:
    prepend(document.querySelector('#one'), document.querySelector('#two')) 
  */
-const prepend = (what, where) => where.prepend(what);
+const prepend = (what, where) => where.insertBefore(what, where.firstChild);
 
 /*
  Задание 3:
@@ -153,7 +153,58 @@ const deleteTextNodesRecursive = where => {
      texts: 3
    }
  */
-const collectDOMStat = root => {};
+const collectDOMStat = root => {
+    const stat = {
+        tags: {},
+        classes: {},
+        texts: 0,
+    };
+
+    const walkTheDOM = where => {
+        if (!where.childNodes) {
+            return;
+        }
+
+        for (const child of where.childNodes) {
+            if (child.nodeType === 3) {
+                stat.texts++;
+            }
+
+            if (child.classList) {
+                for (const className of child.classList) {
+                    // Check if class exist
+                    if (stat.classes.hasOwnProperty(className)) {
+                        // Start counting if it does
+                        stat.classes[className]++;
+                    } else {
+                        // Set number of classes found to 1 if it doesnt
+                        stat.classes[className] = 1;
+                    }
+                }
+            }
+
+            if (child.tagName) {
+                if (stat.tags.hasOwnProperty(child.tagName)) {
+                    stat.tags[child.tagName]++;
+                } else {
+                    stat.tags[child.tagName] = 1;
+                }
+            }
+
+            walkTheDOM(child);
+        }
+    };
+
+    walkTheDOM(root);
+
+    return stat;
+};
+
+const div = document.createElement('div');
+
+div.innerHTML = '<div class="some-class-1"><b>привет!</b> <b class="some-class-1 some-class-2">loftschool</b></div>';
+
+collectDOMStat(div);
 
 /*
  Задание 8 *:
@@ -187,7 +238,23 @@ const collectDOMStat = root => {};
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {}
+const observeChildNodes = (where, fn) => {
+    const observer = new MutationObserver(mutationList => {
+        for (const mutation of mutationList) {
+            if (mutation.addedNodes.length) {
+                fn({ type: 'insert', nodes: [...mutation.addedNodes] });
+            }
+
+            if (mutation.removedNodes.length) {
+                fn({ type: 'remove', nodes: [...mutation.removedNodes] });
+            }
+        }
+    });
+
+    const config = { childList: true };
+
+    observer.observe(where, config);
+};
 
 export {
     createDivWithText,
@@ -197,5 +264,5 @@ export {
     deleteTextNodes,
     deleteTextNodesRecursive,
     collectDOMStat,
-    observeChildNodes
+    observeChildNodes,
 };
