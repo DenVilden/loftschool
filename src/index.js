@@ -80,9 +80,9 @@ const findAllPSiblings = where => {
    findError(document.body) // функция должна вернуть массив с элементами 'привет' и 'loftschool'
  */
 const findError = where => {
-    var array = [];
+    const array = [];
 
-    for (var child of where.children) {
+    for (const child of where.children) {
         array.push(child.textContent);
     }
 
