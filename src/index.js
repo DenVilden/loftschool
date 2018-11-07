@@ -151,13 +151,7 @@ const deleteTextNodesRecursive = where => {
      texts: 3
    }
  */
-const collectDOMStat = root => {
-    const stat = {
-        tags: {},
-        classes: {},
-        texts: 0,
-    };
-
+const collectDOMStat = (root, stat = { tags: {}, classes: {}, texts: 0 }) => {
     const walkTheDOM = where => {
         for (const child of where.childNodes) {
             if (child.nodeType === 3) {
