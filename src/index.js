@@ -32,7 +32,10 @@ const removeListener = (eventName, target, fn) => target.removeEventListener(eve
    skipDefault('click', document.querySelector('a')) 
    // после вызова функции, клики на указанную ссылку не должны приводить к переходу на другую страницу
  */
-const skipDefault = (eventName, target) => target.addEventListener(eventName, evt => evt.preventDefault());
+const skipDefault = (eventName, target) =>
+    target.addEventListener(eventName, evt => {
+        evt.preventDefault();
+    });
 
 /*
  Задание 4:
