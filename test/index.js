@@ -1,12 +1,5 @@
 import assert from 'assert';
-import {
-    addListener,
-    removeListener,
-    skipDefault,
-    emulateClick,
-    delegate,
-    once
-} from '../../../Downloads/228_dz5/src/index';
+import { addListener, removeListener, skipDefault, emulateClick, delegate, once } from '../src/index';
 
 describe('ДЗ 5.1 - DOM Events', () => {
     describe('addListener', () => {
@@ -14,7 +7,7 @@ describe('ДЗ 5.1 - DOM Events', () => {
             let target = document.createElement('div');
             let eventName = 'click';
             let passed = false;
-            let fn = () => passed = true;
+            let fn = () => (passed = true);
 
             addListener(eventName, target, fn);
 
@@ -29,7 +22,7 @@ describe('ДЗ 5.1 - DOM Events', () => {
             let target = document.createElement('div');
             let eventName = 'click';
             let passed = false;
-            let fn = () => passed = true;
+            let fn = () => (passed = true);
 
             target.addEventListener(eventName, fn);
 
@@ -58,7 +51,7 @@ describe('ДЗ 5.1 - DOM Events', () => {
             let target = document.createElement('div');
             let eventName = 'click';
             let passed = false;
-            let fn = () => passed = true;
+            let fn = () => (passed = true);
 
             target.addEventListener(eventName, fn);
 
@@ -73,7 +66,7 @@ describe('ДЗ 5.1 - DOM Events', () => {
             let target = document.createElement('div');
             let eventName = 'click';
             let passed = false;
-            let fn = () => passed = true;
+            let fn = () => (passed = true);
 
             target.innerHTML = '<div></div><a href="#"></a><p></p><button></button>';
 

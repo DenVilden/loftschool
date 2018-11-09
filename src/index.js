@@ -56,7 +56,11 @@ const emulateClick = target => target.click();
    который будет вызывать указанную функцию только если кликнули на кнопку (элемент с тегом button)
  */
 const delegate = (target, fn) =>
-    target.addEventListener('click', evt => (evt.target.tagName === 'BUTTON' ? fn() : null));
+    target.addEventListener('click', evt => {
+        if (evt.target.tagName === 'BUTTON') {
+            fn();
+        }
+    });
 
 /*
  Задание 6:
