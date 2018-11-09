@@ -153,7 +153,7 @@ const deleteTextNodesRecursive = where => {
  */
 const collectDOMStat = (root, stat = { tags: {}, classes: {}, texts: 0 }) => {
     for (const child of root.childNodes) {
-        let { tags, classes } = stat;
+        const { tags, classes } = stat;
 
         if (child.nodeType === 3) {
             stat.texts++;
