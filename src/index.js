@@ -153,28 +153,20 @@ const deleteTextNodesRecursive = where => {
  */
 const collectDOMStat = (root, stat = { tags: {}, classes: {}, texts: 0 }) => {
     for (const child of root.childNodes) {
+        let { tags, classes } = stat;
+
         if (child.nodeType === 3) {
             stat.texts++;
         }
 
         if (child.nodeType === 1) {
-            if (stat.tags.hasOwnProperty(child.tagName)) {
-                stat.tags[child.tagName]++;
-            } else {
-                stat.tags[child.tagName] = 1;
-            }
+            // Check if tag exist // Start counting if it does // Set number of tags found to 1 if it doesnt
+            tags.hasOwnProperty(child.tagName) ? tags[child.tagName]++ : (tags[child.tagName] = 1);
         }
 
         if (child.classList) {
             for (const className of child.classList) {
-                // Check if class exist
-                if (stat.classes.hasOwnProperty(className)) {
-                    // Start counting if it does
-                    stat.classes[className]++;
-                } else {
-                    // Set number of classes found to 1 if it doesnt
-                    stat.classes[className] = 1;
-                }
+                classes.hasOwnProperty(className) ? classes[className]++ : (classes[className] = 1);
             }
         }
 
@@ -242,5 +234,5 @@ export {
     deleteTextNodes,
     deleteTextNodesRecursive,
     collectDOMStat,
-    observeChildNodes,
+    observeChildNodes
 };
