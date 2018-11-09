@@ -14,13 +14,7 @@ rules.push({
 });
 
 module.exports = {
-    entry: {
-        main: './src/index.js',
-        dnd: './src/dnd.js'
-    },
-    devServer: {
-        index: 'dnd.html'
-    },
+    entry: './src/index.js',
     output: {
         filename: '[name].[hash].js',
         path: path.resolve('dist')
@@ -37,15 +31,8 @@ module.exports = {
         }),
         new ExtractTextPlugin('styles.css'),
         new HtmlPlugin({
-            title: 'Main Homework',
-            template: 'main.hbs',
-            chunks: ['main']
-        }),
-        new HtmlPlugin({
-            title: 'Div Drag And Drop',
-            template: 'dnd.hbs',
-            filename: 'dnd.html',
-            chunks: ['dnd']
+            title: 'Loft School sample project',
+            template: 'index.hbs'
         }),
         new CleanWebpackPlugin(['dist'])
     ]
