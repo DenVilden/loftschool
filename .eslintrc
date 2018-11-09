@@ -11,6 +11,7 @@
   },
   "extends": ["eslint:recommended"],
   "rules": {
+    "prefer-arrow-callback": "error",
     "object-shorthand": "error",
     "no-var": "error",
     "arrow-body-style": "error",
