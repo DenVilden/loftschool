@@ -53,7 +53,7 @@ const findAllPSiblings = where => {
     const array = [];
 
     for (const child of where.children) {
-        if (child.nextElementSibling && child.nextElementSibling.localName === 'p') {
+        if (child.nextElementSibling && child.nextElementSibling.tagName === 'P') {
             array.push(child);
         }
     }
