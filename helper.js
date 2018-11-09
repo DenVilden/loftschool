@@ -4,8 +4,7 @@ export function randomNumber(min = 0, max = 100) {
 
 export function randomValue(types, maxDepth = 2) {
     let depth = 0;
-    let allTypes = ['string', 'number', 'boolean', 'null', 'undefined', 'array', 'object'];
-    let type;
+    const allTypes = ['string', 'number', 'boolean', 'null', 'undefined', 'array', 'object'];
 
     if (types) {
         types = Array.isArray(types) ? types : [types];
@@ -13,12 +12,12 @@ export function randomValue(types, maxDepth = 2) {
         types = allTypes;
     }
 
-    type = randomNumber(0, types.length - 1);
+    const type = randomNumber(0, types.length - 1);
 
     switch (types[type]) {
         case 'string': {
-            let length = randomNumber(3, 10);
-            let string = [];
+            const length = randomNumber(3, 10);
+            const string = [];
 
             for (let i = 0; i < length; i++) {
                 string.push(String.fromCharCode(randomNumber(33, 126)));
@@ -34,8 +33,8 @@ export function randomValue(types, maxDepth = 2) {
             return null;
         case 'array': {
             if (depth < maxDepth) {
-                let length = randomNumber(3, 10);
-                let array = [];
+                const length = randomNumber(3, 10);
+                const array = [];
 
                 depth++;
 
@@ -50,13 +49,13 @@ export function randomValue(types, maxDepth = 2) {
         }
         case 'object': {
             if (depth < maxDepth) {
-                let length = randomNumber(3, 10);
-                let object = {};
+                const length = randomNumber(3, 10);
+                const object = {};
 
                 depth++;
 
                 for (let i = 0; i < length; i++) {
-                    let key = randomValue('string');
+                    const key = randomValue('string');
 
                     object[key] = randomValue(depth == maxDepth ? allTypes.slice(0, -2) : allTypes, maxDepth - depth);
                 }
@@ -70,8 +69,8 @@ export function randomValue(types, maxDepth = 2) {
 }
 
 export function randomNumberArray(mode, minLength = 3, maxLength = 10, min, max) {
-    let length = randomNumber(minLength, maxLength);
-    let array = [];
+    const length = randomNumber(minLength, maxLength);
+    const array = [];
 
     for (let i = 0; i < length; i++) {
         let number = randomNumber(min, max);
@@ -87,8 +86,8 @@ export function randomNumberArray(mode, minLength = 3, maxLength = 10, min, max)
 }
 
 export function randomStringArray(minLength = 3, maxLength = 10) {
-    let length = randomNumber(minLength, maxLength);
-    let array = [];
+    const length = randomNumber(minLength, maxLength);
+    const array = [];
 
     for (let i = 0; i < length; i++) {
         array.push(randomValue('string'));
