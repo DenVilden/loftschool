@@ -7,8 +7,8 @@
  Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
 const forEach = (array, fn) => {
-    for (let index = 0; index < array.length; index++) {
-        fn(array[index], index, array);
+    for (const [index, element] of array.entries()) {
+        fn(element, index, array);
     }
 };
 
@@ -21,8 +21,8 @@ const forEach = (array, fn) => {
 const map = (array, fn) => {
     const newArray = [];
 
-    for (let index = 0; index < array.length; index++) {
-        newArray.push(fn(array[index], index, array));
+    for (const [index, element] of array.entries()) {
+        newArray.push(fn(element, index, array));
     }
 
     return newArray;
