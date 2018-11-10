@@ -1,5 +1,7 @@
 /* Задание со звездочкой */
 
+import { randomNumber } from '../helper';
+
 /*
  Создайте страницу с кнопкой.
  При нажатии на кнопку должен создаваться div со случайными размерами, цветом и позицией на экране
@@ -9,7 +11,7 @@
 
 /*
  homeworkContainer - это контейнер для всех ваших домашних заданий
- Если вы создаете новые html-элементы и добавляете их на страницу, то дабавляйте их только в этот контейнер
+ Если вы создаете новые html-элементы и добавляете их на страницу, то добавляйте их только в этот контейнер
 
  Пример:
    const newDiv = document.createElement('div');
@@ -26,8 +28,20 @@ const homeworkContainer = document.querySelector('#homework-container');
    const newDiv = createDiv();
    homeworkContainer.appendChild(newDiv);
  */
-function createDiv() {
-}
+
+const createDiv = () => {
+    const div = document.createElement('div');
+
+    div.classList.add('draggable-div');
+    div.style.backgroundColor = `#${Math.round(0xffffff * Math.random()).toString(16)}`;
+    div.style.position = 'absolute';
+    div.style.top = `${randomNumber(1, 100)}%`;
+    div.style.left = `${randomNumber(1, 100)}%`;
+    div.style.width = `${randomNumber(5, 50)}%`;
+    div.style.height = `${randomNumber(5, 50)}%`;
+
+    return div;
+};
 
 /*
  Функция должна добавлять обработчики событий для перетаскивания элемента при помощи drag and drop
@@ -37,12 +51,40 @@ function createDiv() {
    homeworkContainer.appendChild(newDiv);
    addListeners(newDiv);
  */
-function addListeners(target) {
-}
+const addListeners = target =>
+    target.addEventListener('mousedown', evt => {
+        let startCoords = {
+            x: evt.clientX,
+            y: evt.clientY
+        };
 
-let addDivButton = homeworkContainer.querySelector('#addDiv');
+        const onMouseMove = moveEvt => {
+            const shift = {
+                x: startCoords.x - moveEvt.clientX,
+                y: startCoords.y - moveEvt.clientY
+            };
 
-addDivButton.addEventListener('click', function() {
+            startCoords = {
+                x: moveEvt.clientX,
+                y: moveEvt.clientY
+            };
+
+            target.style.top = target.offsetTop - shift.y + 'px';
+            target.style.left = target.offsetLeft - shift.x + 'px';
+        };
+
+        const onMouseUp = () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+
+const addDivButton = homeworkContainer.querySelector('#addDiv');
+
+addDivButton.addEventListener('click', () => {
     // создать новый div
     const div = createDiv();
 
@@ -54,6 +96,4 @@ addDivButton.addEventListener('click', function() {
     // или использовать HTML5 D&D - https://www.html5rocks.com/ru/tutorials/dnd/basics/
 });
 
-export {
-    createDiv
-};
+export { createDiv };
