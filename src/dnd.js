@@ -69,8 +69,8 @@ const addListeners = target =>
                 y: moveEvt.clientY
             };
 
-            target.style.top = target.offsetTop - shift.y + 'px';
-            target.style.left = target.offsetLeft - shift.x + 'px';
+            target.style.top = `${target.offsetTop - shift.y}px`;
+            target.style.left = `${target.offsetLeft - shift.x}px`;
         };
 
         const onMouseUp = () => {
