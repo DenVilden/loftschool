@@ -52,7 +52,7 @@ const createDiv = () => {
    addListeners(newDiv);
  */
 const addListeners = target =>
-    document.addEventListener('mousedown', evt => {
+    target.addEventListener('mousedown', evt => {
         let startCoords = {
             x: evt.clientX,
             y: evt.clientY
