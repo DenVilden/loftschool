@@ -58,6 +58,8 @@ const addListeners = target =>
             y: evt.clientY
         };
 
+        target.style.zIndex = 1;
+
         const onMouseMove = moveEvt => {
             const shift = {
                 x: startCoords.x - moveEvt.clientX,
@@ -74,6 +76,8 @@ const addListeners = target =>
         };
 
         const onMouseUp = () => {
+            target.style.zIndex = 0;
+
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         };
