@@ -28,33 +28,26 @@ const delayPromise = seconds =>
  Пример:
    loadAndSortTowns().then(towns => console.log(towns)) // должна вывести в консоль отсортированный массив городов
  */
-const loadAndSortTowns = () =>
-    new Promise((resolve, reject) => {
-        const townsRequest = new XMLHttpRequest();
 
-        townsRequest.addEventListener('readystatechange', evt => {
-            if (evt.target.readyState === 4 && evt.target.status === 200) {
-                const towns = JSON.parse(evt.target.responseText);
+const loadAndSortTowns = async () => {
+    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
 
-                towns.sort((a, b) => {
-                    if (a.name < b.name) {
-                        return -1;
-                    }
-                    if (a.name > b.name) {
-                        return 1;
-                    }
+    if (response.status === 200) {
+        const data = await response.json();
 
-                    return 0;
-                });
-
-                resolve(towns);
-            } else if (evt.target.readyState === 4) {
-                reject('unable to get towns');
+        return data.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
             }
-        });
+            if (a.name > b.name) {
+                return 1;
+            }
 
-        townsRequest.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
-        townsRequest.send();
-    });
+            return 0;
+        });
+    }
+
+    throw new Error('unable to get towns');
+};
 
 export { delayPromise, loadAndSortTowns };
