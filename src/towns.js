@@ -92,7 +92,7 @@ const filterResult = homeworkContainer.querySelector('#filter-result');
 const errorButton = homeworkContainer.querySelector('#error-button');
 
 errorButton.addEventListener('click', () => {
-    getTowns = loadTowns;
+    getTowns = loadTowns();
 });
 
 filterInput.addEventListener('keyup', evt => {
