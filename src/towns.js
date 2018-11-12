@@ -97,7 +97,7 @@ errorButton.addEventListener('click', () => {
 
 filterInput.addEventListener('keyup', evt => {
     getTowns.then(towns => {
-        const townsFilter = towns
+        filterResult.innerHTML = towns
             .filter(town => isMatching(town.name, evt.target.value))
             .map(town => {
                 if (evt.target.value.length) {
@@ -105,8 +105,6 @@ filterInput.addEventListener('keyup', evt => {
                 }
             })
             .join('');
-
-        filterResult.innerHTML = townsFilter;
     });
 
     // это обработчик нажатия клавиш в текстовом поле
