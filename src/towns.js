@@ -65,7 +65,7 @@ const loadTowns = async () => {
     throw new Error('unable to get towns');
 };
 
-loadTowns();
+let getTowns = loadTowns();
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -91,22 +91,23 @@ const filterResult = homeworkContainer.querySelector('#filter-result');
 /* Кнопка повторить запрос */
 const errorButton = homeworkContainer.querySelector('#error-button');
 
-errorButton.addEventListener('click', loadTowns);
+errorButton.addEventListener('click', () => {
+    getTowns = loadTowns;
+});
 
-filterInput.addEventListener('keyup', async evt => {
-    const towns = await loadTowns();
+filterInput.addEventListener('keyup', evt => {
+    getTowns.then(towns => {
+        const townsFilter = towns.filter(town => isMatching(town.name, evt.target.value));
+        const townsRender = townsFilter
+            .map(town => {
+                if (evt.target.value.length) {
+                    return `<p>${town.name}</p>`;
+                }
+            })
+            .join('');
 
-    const townsFilter = towns.filter(town => isMatching(town.name, evt.target.value));
-
-    const townsRender = townsFilter
-        .map(town => {
-            if (evt.target.value.length) {
-                return `<p>${town.name}</p>`;
-            }
-        })
-        .join('');
-
-    filterResult.innerHTML = townsRender;
+        filterResult.innerHTML = townsRender;
+    });
 
     // это обработчик нажатия клавиш в текстовом поле
 });
