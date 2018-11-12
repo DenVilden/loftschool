@@ -97,8 +97,8 @@ errorButton.addEventListener('click', () => {
 
 filterInput.addEventListener('keyup', evt => {
     getTowns.then(towns => {
-        const townsFilter = towns.filter(town => isMatching(town.name, evt.target.value));
-        const townsRender = townsFilter
+        const townsFilter = towns
+            .filter(town => isMatching(town.name, evt.target.value))
             .map(town => {
                 if (evt.target.value.length) {
                     return `<p>${town.name}</p>`;
@@ -106,7 +106,7 @@ filterInput.addEventListener('keyup', evt => {
             })
             .join('');
 
-        filterResult.innerHTML = townsRender;
+        filterResult.innerHTML = townsFilter;
     });
 
     // это обработчик нажатия клавиш в текстовом поле
