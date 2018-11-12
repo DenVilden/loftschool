@@ -33,9 +33,9 @@ const loadAndSortTowns = async () => {
     const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
 
     if (response.status === 200) {
-        const data = await response.json();
+        const towns = await response.json();
 
-        return data.sort((a, b) => {
+        return towns.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
             }
