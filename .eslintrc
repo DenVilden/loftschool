@@ -11,10 +11,6 @@
   },
   "extends": ["eslint:recommended"],
   "rules": {
-    "prefer-arrow-callback": "error",
-    "object-shorthand": "error",
-    "no-var": "error",
-    "arrow-body-style": "error",
     "prefer-const": "error",
     "no-cond-assign": "off",
     "space-before-blocks": "error",
@@ -35,7 +31,7 @@
         "SwitchCase": 1
       }
     ],
-    "max-len": ["error", 120],
+    "max-len": ["error", 120, { "ignoreComments": true }],
     "newline-after-var": "error",
     "newline-before-return": "error",
     "no-multiple-empty-lines": [
