@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "codestyle": "eslint src",
-    "travis": "npm run codestyle && npm test",
+    "travis": "yarn run codestyle && yarn test",
     "build": "webpack --progress --colors",
     "watch": "webpack-dev-server --progress --colors --open",
-    "start": "npm run watch",
+    "start": "yarn run watch",
     "test": "karma start",
     "cover": "istanbul cover _mocha -- test/*.js",
-    "prepare": "npm run travis"
+    "prepare": "yarn run travis"
   },
   "author": "",
   "license": "MIT",
