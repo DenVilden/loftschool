@@ -48,7 +48,7 @@ if (!html.length || !files['.hbs'].find(file => file.name === 'index')) {
         }),
         new HtmlPlugin({
             title: 'towns',
-            template: './src/towns.hbs',
+            template: 'towns.hbs',
             chunks: ['towns']
         })
     );
