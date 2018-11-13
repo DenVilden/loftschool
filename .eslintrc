@@ -13,9 +13,9 @@
   "rules": {
     "array-callback-return": "error",
     "implicit-arrow-linebreak": "error",
-    "consistent-return": "error",
     "arrow-body-style": "error",
     "prefer-const": "error",
+    "no-return-assign": "error",
 
     "no-cond-assign": "off",
     "space-before-blocks": "error",
