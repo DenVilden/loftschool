@@ -7,12 +7,11 @@ describe('ДЗ 6.2 - Фильтр городов', () => {
     let filterBlock;
     let filterInput;
     let filterResult;
-    let filterPage;
 
     homeworkContainer.id = 'homework-container';
     homeworkContainer.innerHTML = template();
     document.body.appendChild(homeworkContainer);
-    filterPage = require('../src/towns');
+    const filterPage = require('../src/towns');
 
     describe('Функциональное тестирование', () => {
         describe('isMatching', () => {
