@@ -29,7 +29,7 @@
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#homework-container');
-
+let towns = [];
 /*
  Функция должна вернуть Promise, который должен быть разрешен с массивом городов в качестве значения
 
@@ -37,12 +37,12 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 const loadTowns = async () => {
-    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/citis.json');
 
-    if (response.status === 200) {
-        const towns = await response.json();
+    if (response.ok) {
+        const data = await response.json();
 
-        towns.sort((a, b) => {
+        data.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
             }
@@ -56,16 +56,30 @@ const loadTowns = async () => {
         filterBlock.style.display = '';
         loadingBlock.textContent = '';
 
-        return towns;
-    }
+        towns = data;
 
-    errorButton.style.display = '';
+        return data;
+    }
+    // При ошибке
+    const retryButton = document.createElement('button');
+
+    retryButton.textContent = 'Повторить';
+
+    homeworkContainer.appendChild(retryButton);
+
     loadingBlock.textContent = 'Не удалось загрузить города';
+
+    const onRetry = () => {
+        loadTowns();
+        homeworkContainer.removeChild(retryButton);
+    };
+
+    retryButton.addEventListener('click', onRetry);
 
     throw new Error('unable to get towns');
 };
 
-let getTowns = loadTowns();
+loadTowns();
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -88,26 +102,17 @@ const filterBlock = homeworkContainer.querySelector('#filter-block');
 const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
-/* Кнопка повторить запрос */
-const errorButton = homeworkContainer.querySelector('#error-button');
 
-errorButton.addEventListener('click', () => {
-    getTowns = loadTowns();
-});
-
+// это обработчик нажатия клавиш в текстовом поле
 filterInput.addEventListener('keyup', evt => {
-    getTowns.then(towns => {
-        filterResult.innerHTML = towns
-            .filter(town => isMatching(town.name, evt.target.value))
-            .map(town => {
-                if (evt.target.value.length) {
-                    return `<p>${town.name}</p>`;
-                }
-            })
-            .join('');
-    });
-
-    // это обработчик нажатия клавиш в текстовом поле
+    filterResult.innerHTML = towns
+        .filter(town => isMatching(town.name, evt.target.value))
+        .map(town => {
+            if (evt.target.value.length) {
+                return `<p>${town.name}</p>`;
+            }
+        })
+        .join('');
 });
 
 export { loadTowns, isMatching };
