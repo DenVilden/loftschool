@@ -37,7 +37,7 @@ let towns = [];
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 const loadTowns = async () => {
-    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/citses.json');
 
     if (response.ok) {
         const data = await response.json();
@@ -69,13 +69,11 @@ const loadTowns = async () => {
 
     loadingBlock.textContent = 'Не удалось загрузить города';
 
-    const onRetry = () => {
+    retryButton.addEventListener('click', () => {
         loadingBlock.textContent = 'Загрузка...';
         loadTowns();
         homeworkContainer.removeChild(retryButton);
-    };
-
-    retryButton.addEventListener('click', onRetry);
+    });
 
     throw new Error('unable to get towns');
 };
