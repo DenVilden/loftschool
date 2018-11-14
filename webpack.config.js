@@ -30,13 +30,12 @@ const entries = files['.js'].reduce((all, { name, absPath }) => {
 const html = files['.hbs']
     .filter(file => entries.hasOwnProperty(file.name))
     .map(
-        file =>
-            new HtmlPlugin({
-                title: file.name,
-                template: file.absPath,
-                filename: `${file.name}.html`,
-                chunks: [file.name]
-            })
+        file => new HtmlPlugin({
+            title: file.name,
+            template: file.absPath,
+            filename: `${file.name}.html`,
+            chunks: [file.name]
+        })
     );
 
 if (!html.length || !files['.hbs'].find(file => file.name === 'index')) {
