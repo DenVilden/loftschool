@@ -32,18 +32,9 @@ const loadAndSortTowns = async () => {
     const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
 
     if (response.ok) {
-        const towns = await response.json();
+        const data = await response.json();
 
-        return towns.sort((a, b) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
-
-            return 0;
-        });
+        data.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     throw new Error('unable to get towns');

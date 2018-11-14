@@ -42,38 +42,26 @@ const loadTowns = async () => {
     if (response.ok) {
         const data = await response.json();
 
-        data.sort((a, b) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
-
-            return 0;
-        });
-
-        filterBlock.style.display = '';
-        loadingBlock.textContent = '';
-
+        data.sort((a, b) => a.name.localeCompare(b.name));
         towns = data;
+
+        filterBlock.style.display = 'block';
+        loadingBlock.textContent = '';
 
         return data;
     }
     // При ошибке
     const retryButton = document.createElement('button');
 
-    retryButton.textContent = 'Повторить';
-
-    homeworkContainer.appendChild(retryButton);
-
     loadingBlock.textContent = 'Не удалось загрузить города';
 
+    retryButton.textContent = 'Повторить';
     retryButton.addEventListener('click', () => {
         loadingBlock.textContent = 'Загрузка...';
         loadTowns();
         homeworkContainer.removeChild(retryButton);
     });
+    homeworkContainer.appendChild(retryButton);
 
     throw new Error('unable to get towns');
 };
