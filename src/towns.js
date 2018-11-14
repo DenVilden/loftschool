@@ -108,13 +108,7 @@ const filterResult = homeworkContainer.querySelector('#filter-result');
 filterInput.addEventListener('keyup', evt => {
     filterResult.innerHTML = towns
         .filter(town => isMatching(town.name, evt.target.value))
-        .map(town => {
-            if (evt.target.value.length) {
-                return `<p>${town.name}</p>`;
-            }
-
-            return '';
-        })
+        .map(town => (evt.target.value.length ? `<p>${town.name}</p>` : ''))
         .join('');
 });
 
