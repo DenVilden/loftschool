@@ -34,16 +34,9 @@ const loadAndSortTowns = async () => {
     if (response.ok) {
         const towns = await response.json();
 
-        return towns.sort((a, b) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
+        towns.sort((a, b) => a.name.localeCompare(b.name));
 
-            return 0;
-        });
+        return towns;
     }
 
     throw new Error('unable to get towns');
