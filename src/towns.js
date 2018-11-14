@@ -37,7 +37,7 @@ let towns = [];
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 const loadTowns = async () => {
-    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/citses.json');
+    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
 
     if (response.ok) {
         const data = await response.json();
