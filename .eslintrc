@@ -11,6 +11,8 @@
   },
   "extends": ["eslint:recommended"],
   "rules": {
+    "implicit-arrow-linebreak": "error",
+
     "arrow-body-style": "error",
     "prefer-const": "error",
     "no-cond-assign": "off",

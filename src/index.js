@@ -8,12 +8,11 @@
  Пример:
    delayPromise(3) // вернет promise, который будет разрешен через 3 секунды
  */
-const delayPromise = seconds =>
-    new Promise(resolve => {
-        setTimeout(() => {
-            resolve('done');
-        }, `${seconds}000`);
-    });
+const delayPromise = seconds => new Promise(resolve => {
+    setTimeout(() => {
+        resolve('done');
+    }, `${seconds}000`);
+});
 
 /*
  Задание 2:
@@ -32,7 +31,7 @@ const delayPromise = seconds =>
 const loadAndSortTowns = async () => {
     const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
 
-    if (response.status === 200) {
+    if (response.ok) {
         const towns = await response.json();
 
         return towns.sort((a, b) => {

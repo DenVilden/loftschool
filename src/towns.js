@@ -70,6 +70,7 @@ const loadTowns = async () => {
     loadingBlock.textContent = 'Не удалось загрузить города';
 
     const onRetry = () => {
+        loadingBlock.textContent = 'Загрузка...';
         loadTowns();
         homeworkContainer.removeChild(retryButton);
     };
@@ -111,6 +112,8 @@ filterInput.addEventListener('keyup', evt => {
             if (evt.target.value.length) {
                 return `<p>${town.name}</p>`;
             }
+
+            return '';
         })
         .join('');
 });
