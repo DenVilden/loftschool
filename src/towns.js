@@ -53,11 +53,6 @@ const loadTowns = async () => {
     // При ошибке
     const retryButton = document.createElement('button');
 
-<<<<<<< HEAD
-=======
-    loadingBlock.textContent = 'Не удалось загрузить города';
-
->>>>>>> 84c5affa9550a8abe79c0863fd8a062a0345dd35
     retryButton.textContent = 'Повторить';
     retryButton.addEventListener('click', () => {
         loadingBlock.textContent = 'Загрузка...';
