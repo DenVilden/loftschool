@@ -1,6 +1,8 @@
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 const rules = require('./webpack.config.rules');
 const fs = require('fs');
 const path = require('path');
@@ -60,8 +62,22 @@ module.exports = {
         rules: [
             ...rules,
             {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
+                test: /\.(css|scss)$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [
+                                autoprefixer({
+                                    browsers: ['ie 11']
+                                })
+                            ]
+                        }
+                    },
+                    'sass-loader'
+                ]
             }
         ]
     },
@@ -69,6 +85,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css'
         }),
+        new OptimizeCSSAssetsPlugin(),
         ...html,
         new CleanWebpackPlugin(['dist'])
     ]

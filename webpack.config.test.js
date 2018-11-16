@@ -15,9 +15,9 @@ module.exports = {
                 options: { esModules: true }
             },
             {
-                test: /\.css$/,
+                test: /\.(css|scss)$/,
                 include: path.resolve('src/'),
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     }
