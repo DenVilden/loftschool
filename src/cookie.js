@@ -115,7 +115,7 @@ const renderCookies = () => {
 
     // filter cookies based on filter
     for (const name in cookies) {
-        if (cookies.hasOwnProperty(name) && name) {
+        if (name && cookies.hasOwnProperty(name)) {
             const value = cookies[name];
 
             if (filterCookies(name) || filterCookies(value)) {
@@ -127,9 +127,11 @@ const renderCookies = () => {
     listTable.innerHTML = '';
 
     // render element for each cookie
-    for (const name in filteredCookies) {
-        if (filteredCookies.hasOwnProperty(name)) {
-            listTable.appendChild(generateCookiesDOM(name, filteredCookies[name]));
+    if (Object.keys(filteredCookies).length) {
+        for (const name in filteredCookies) {
+            if (filteredCookies.hasOwnProperty(name)) {
+                listTable.appendChild(generateCookiesDOM(name, filteredCookies[name]));
+            }
         }
     }
 };
