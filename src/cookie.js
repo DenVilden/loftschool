@@ -36,12 +36,8 @@
 const homeworkContainer = document.querySelector('#homework-container');
 // текстовое поле для фильтрации cookie
 const filterNameInput = homeworkContainer.querySelector('#filter-name-input');
-// текстовое поле с именем cookie
-const addNameInput = homeworkContainer.querySelector('#add-name-input');
-// текстовое поле со значением cookie
-const addValueInput = homeworkContainer.querySelector('#add-value-input');
-// кнопка "добавить cookie"
-const addButton = homeworkContainer.querySelector('#add-button');
+// форма "добавить cookie"
+const addBlock = homeworkContainer.querySelector('#add-block');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
@@ -50,15 +46,13 @@ filterNameInput.addEventListener('keyup', () => {
     renderCookies();
 });
 
-addButton.addEventListener('click', () => {
+addBlock.addEventListener('submit', evt => {
     // здесь можно обработать нажатие на кнопку "добавить cookie"
-    const name = addNameInput.value.trim();
-    const value = addValueInput.value.trim();
+    evt.preventDefault();
+    const name = evt.target.elements.name.value.trim();
+    const value = evt.target.elements.value.value.trim();
 
-    if (name || value) {
-        setCookie(name, value);
-    }
-
+    setCookie(name, value);
     renderCookies();
 });
 
@@ -71,6 +65,10 @@ const getCookies = () => document.cookie.split('; ').reduce((prev, current) => {
 }, {});
 
 const setCookie = (name, value, days = 7) => {
+    if (!name || !value) {
+        return;
+    }
+
     const date = new Date();
 
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
@@ -101,7 +99,7 @@ const generateCookiesDOM = (name, value) => {
     removeButton.textContent = 'X';
     removeEl.appendChild(removeButton);
     removeButton.addEventListener('click', () => {
-        setCookie(name, '', -1);
+        setCookie(name, value, -1);
         renderCookies();
     });
 
