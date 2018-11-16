@@ -50,12 +50,11 @@ loadTowns()
         const retryButton = document.createElement('button');
 
         retryButton.textContent = 'Повторить';
+        homeworkContainer.appendChild(retryButton);
         retryButton.addEventListener('click', () => {
             loadingBlock.textContent = 'Загрузка...';
             loadTowns();
-            homeworkContainer.removeChild(retryButton);
         });
-        homeworkContainer.appendChild(retryButton);
 
         loadingBlock.textContent = 'Не удалось загрузить города';
     });
