@@ -12,10 +12,10 @@
   "extends": ["eslint:recommended"],
   "rules": {
     "array-callback-return": "error",
-    "implicit-arrow-linebreak": "error",
     "arrow-body-style": "error",
     "prefer-const": "error",
     "no-return-assign": "error",
+    "implicit-arrow-linebreak": "error",
 
     "no-cond-assign": "off",
     "space-before-blocks": "error",
