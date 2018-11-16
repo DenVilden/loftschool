@@ -28,6 +28,8 @@
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
+import { loadAndSortTowns as loadTowns } from './index';
+
 const homeworkContainer = document.querySelector('#homework-container');
 let towns = [];
 /*
@@ -36,36 +38,27 @@ let towns = [];
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
-const loadTowns = async () => {
-    const response = await fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
 
-    if (response.ok) {
-        const data = await response.json();
-
-        data.sort((a, b) => a.name.localeCompare(b.name));
+loadTowns()
+    .then(data => {
         towns = data;
 
         filterBlock.style.display = 'block';
         loadingBlock.textContent = '';
+    })
+    .catch(() => {
+        const retryButton = document.createElement('button');
 
-        return data;
-    }
-    // При ошибке
-    const retryButton = document.createElement('button');
+        retryButton.textContent = 'Повторить';
+        retryButton.addEventListener('click', () => {
+            loadingBlock.textContent = 'Загрузка...';
+            loadTowns();
+            homeworkContainer.removeChild(retryButton);
+        });
+        homeworkContainer.appendChild(retryButton);
 
-    retryButton.textContent = 'Повторить';
-    retryButton.addEventListener('click', () => {
-        loadingBlock.textContent = 'Загрузка...';
-        loadTowns();
-        homeworkContainer.removeChild(retryButton);
+        loadingBlock.textContent = 'Не удалось загрузить города';
     });
-    homeworkContainer.appendChild(retryButton);
-
-    loadingBlock.textContent = 'Не удалось загрузить города';
-    throw new Error('unable to get towns');
-};
-
-loadTowns();
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
