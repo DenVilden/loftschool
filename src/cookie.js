@@ -40,18 +40,15 @@ const addBlock = homeworkContainer.querySelector('#add-block');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
+// здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
 filterNameInput.addEventListener('keyup', () => {
-    // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
     renderCookies();
 });
 
+// здесь можно обработать нажатие на кнопку "добавить cookie"
 addBlock.addEventListener('submit', evt => {
-    // здесь можно обработать нажатие на кнопку "добавить cookie"
     evt.preventDefault();
-    const name = evt.target.elements.name.value.trim();
-    const value = evt.target.elements.value.value.trim();
-
-    setCookie(name, value);
+    setCookie(evt.target.elements.name.value.trim(), evt.target.elements.value.value.trim());
     renderCookies();
 });
 
@@ -64,7 +61,7 @@ const getCookies = () => document.cookie.split('; ').reduce((prev, current) => {
 }, {});
 
 const setCookie = (name, value, days = 7) => {
-    // return if no value provided
+    // do nothing if either no name and value provided
     if (!name || !value) {
         return;
     }
@@ -106,19 +103,19 @@ const generateCookiesDOM = (name, value) => {
     return containerEl;
 };
 
-const filterCookies = fullName => fullName.toLowerCase().includes(filterNameInput.value.toLowerCase());
+const searchCookies = fullName => fullName.toLowerCase().includes(filterNameInput.value.toLowerCase());
 
 const renderCookies = () => {
     const cookies = getCookies();
 
     const filteredCookies = {};
 
-    // filter cookies based on filter
+    // filter cookies based on input value
     for (const name in cookies) {
         if (name && cookies.hasOwnProperty(name)) {
             const value = cookies[name];
 
-            if (filterCookies(name) || filterCookies(value)) {
+            if (searchCookies(name) || searchCookies(value)) {
                 filteredCookies[name] = value;
             }
         }
