@@ -62,18 +62,25 @@ addButton.addEventListener('click', () => {
     renderCookies();
 });
 
-const filterCookies = fullName => fullName.toLowerCase().includes(filterNameInput.value.toLowerCase());
+const getCookies = () => document.cookie.split('; ').reduce((prev, current) => {
+    const [name, value] = current.split('=');
 
-const getCookies = () => document.cookie
-    .split('; ')
-    .filter(Boolean)
-    .map(cookie => cookie.match(/^([^=]+)=(.+)/))
-    .reduce((obj, [, name, value]) => {
-        obj[name] = value;
+    prev[name] = value;
 
-        return obj;
-    }, {});
+    return prev;
+}, {});
 
+const setCookie = (name, value, days = 7) => {
+    const date = new Date();
+
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+
+    const expires = `expires=${date.toGMTString()}`;
+
+    document.cookie = `${name}=${value};${expires};`;
+};
+
+// get the dom element for each cookie
 const generateCookiesDOM = (name, value) => {
     const containerEl = document.createElement('tr');
     const nameEl = document.createElement('td');
@@ -101,14 +108,16 @@ const generateCookiesDOM = (name, value) => {
     return containerEl;
 };
 
+const filterCookies = fullName => fullName.toLowerCase().includes(filterNameInput.value.toLowerCase());
+
 const renderCookies = () => {
     const cookies = getCookies();
 
     const filteredCookies = {};
 
-    // change cookies a
+    // filter cookies based on filters
     for (const name in cookies) {
-        if (cookies.hasOwnProperty(name)) {
+        if (cookies.hasOwnProperty(name) && name) {
             const value = cookies[name];
 
             if (filterCookies(name) || filterCookies(value)) {
@@ -119,7 +128,7 @@ const renderCookies = () => {
 
     listTable.innerHTML = '';
 
-    // create element for each cookie
+    // render element for each cookie
     for (const name in filteredCookies) {
         if (filteredCookies.hasOwnProperty(name)) {
             listTable.appendChild(generateCookiesDOM(name, filteredCookies[name]));
@@ -128,13 +137,3 @@ const renderCookies = () => {
 };
 
 renderCookies();
-
-const setCookie = (name, value, days = 7) => {
-    const date = new Date();
-
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-
-    const expires = `expires=${date.toGMTString()}`;
-
-    document.cookie = `${name}=${value};${expires};`;
-};
