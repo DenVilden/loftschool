@@ -37,7 +37,7 @@ describe('ДЗ 7.2 - Cookie editor', () => {
             }
         });
 
-        it('на старнице должны быть элементы с нужными id', () => {
+        it('на странице должны быть элементы с нужными id', () => {
             filterNameInput = homeworkContainer.querySelector('#filter-name-input');
             addNameInput = homeworkContainer.querySelector('#add-name-input');
             addValueInput = homeworkContainer.querySelector('#add-value-input');
@@ -79,8 +79,6 @@ describe('ДЗ 7.2 - Cookie editor', () => {
         });
 
         it('если при добавлении указано имя существующей cookie, то в таблице не должно быть дублей', () => {
-            let cookies;
-
             addNameInput.value = 'test-cookie-name-1';
             addValueInput.value = 'test-cookie-value-1';
             addButton.click();
@@ -93,16 +91,14 @@ describe('ДЗ 7.2 - Cookie editor', () => {
             addValueInput.value = 'test-cookie-value-2';
             addButton.click();
 
-            cookies = getCookies();
+            const cookies = getCookies();
+
             assert(cookies.hasOwnProperty(addNameInput.value), 'cookie не добавлена в браузер');
             assert.equal(cookies[addNameInput.value], addValueInput.value, 'не изменено значение cookie');
             assert.equal(listTable.children.length, 2, 'в таблице обнаружен дубль');
         });
 
         it('если при добавлении указано имя существующей cookie, то в таблице должно быть изменено ее значение', () => {
-            let rows;
-            let changedRow;
-
             addNameInput.value = 'test-cookie-name-1';
             addValueInput.value = 'test-cookie-value-1';
             addButton.click();
@@ -115,8 +111,9 @@ describe('ДЗ 7.2 - Cookie editor', () => {
             addValueInput.value = 'other-test-cookie-value-2';
             addButton.click();
 
-            rows = [...listTable.children];
-            changedRow = rows.filter(row => row.children[1].textContent.trim() == 'other-test-cookie-value-2');
+            const rows = [...listTable.children];
+            const changedRow = rows.filter(row => row.children[1].textContent.trim() == 'other-test-cookie-value-2');
+
             assert.equal(changedRow.length, 1, 'новое значение для cookie не найдено в таблице');
         });
 
@@ -170,8 +167,6 @@ describe('ДЗ 7.2 - Cookie editor', () => {
             });
 
             it('добавлять cookie в таблицу, только если значение cookie соответствует фильтру', () => {
-                let cookies;
-
                 addNameInput.value = 'test-cookie-name-1';
                 addValueInput.value = 'test-cookie-value-1';
                 addButton.click();
@@ -188,15 +183,14 @@ describe('ДЗ 7.2 - Cookie editor', () => {
                 addValueInput.value = 'test-cookie-more-value-2';
                 addButton.click();
 
-                cookies = getCookies();
+                const cookies = getCookies();
+
                 assert(cookies.hasOwnProperty(addNameInput.value), 'должна быть добавлена в браузер');
                 assert.equal(cookies[addNameInput.value], addValueInput.value, 'должна быть добавлена в браузер');
                 assert.equal(listTable.children.length, 2, 'должна быть в таблице т.к. соответствует фильтру');
             });
 
             it('не добавлять cookie в таблицу, если значение cookie не соответствует фильтру', () => {
-                let cookies;
-
                 addNameInput.value = 'test-cookie-name-1';
                 addValueInput.value = 'test-cookie-value-1';
                 addButton.click();
@@ -213,15 +207,14 @@ describe('ДЗ 7.2 - Cookie editor', () => {
                 addValueInput.value = 'test-cookie-value-3';
                 addButton.click();
 
-                cookies = getCookies();
+                const cookies = getCookies();
+
                 assert(cookies.hasOwnProperty(addNameInput.value), 'должна быть добавлена в браузер');
                 assert.equal(cookies[addNameInput.value], addValueInput.value, 'должна быть добавлена в браузер');
                 assert.equal(listTable.children.length, 1, 'не должна быть в таблице т.к. не соответствует фильтру');
             });
 
-            it('удалить cookie из табилицы, если ее значение перестало соответствовать фильтр', () => {
-                let cookies;
-
+            it('удалить cookie из таблицы, если ее значение перестало соответствовать фильтр', () => {
                 addNameInput.value = 'test-cookie-name-1';
                 addValueInput.value = 'test-cookie-value-1';
                 addButton.click();
@@ -242,8 +235,9 @@ describe('ДЗ 7.2 - Cookie editor', () => {
                 addValueInput.value = 'test-cookie-value-3';
                 addButton.click();
 
-                cookies = getCookies();
-                assert(cookies.hasOwnProperty(addNameInput.value), 'должна оставться в браузере');
+                const cookies = getCookies();
+
+                assert(cookies.hasOwnProperty(addNameInput.value), 'должна оставаться в браузере');
                 assert.equal(cookies[addNameInput.value], addValueInput.value, 'значение в браузере должно измениться');
                 assert.equal(listTable.children.length, 1, 'уже не соответствует фильтру и не должна быть в таблице');
             });

@@ -31,7 +31,6 @@
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
-// const cookies = [];
 
 const homeworkContainer = document.querySelector('#homework-container');
 // текстовое поле для фильтрации cookie
@@ -65,6 +64,7 @@ const getCookies = () => document.cookie.split('; ').reduce((prev, current) => {
 }, {});
 
 const setCookie = (name, value, days = 7) => {
+    // return if no value provided
     if (!name || !value) {
         return;
     }
@@ -78,7 +78,7 @@ const setCookie = (name, value, days = 7) => {
     document.cookie = `${name}=${value};${expires};`;
 };
 
-// get the dom element for each cookie
+// get the dom element for an individual cookie
 const generateCookiesDOM = (name, value) => {
     const containerEl = document.createElement('tr');
     const nameEl = document.createElement('td');
@@ -86,15 +86,15 @@ const generateCookiesDOM = (name, value) => {
     const removeEl = document.createElement('td');
     const removeButton = document.createElement('button');
 
-    // Setup name
+    // setup name
     nameEl.textContent = name;
     containerEl.appendChild(nameEl);
 
-    // Setup value
+    // setup value
     valueEl.textContent = value;
     containerEl.appendChild(valueEl);
 
-    // Setup button
+    // setup button
     containerEl.appendChild(removeEl);
     removeButton.textContent = 'X';
     removeEl.appendChild(removeButton);
@@ -113,7 +113,7 @@ const renderCookies = () => {
 
     const filteredCookies = {};
 
-    // filter cookies based on filters
+    // filter cookies based on filter
     for (const name in cookies) {
         if (cookies.hasOwnProperty(name) && name) {
             const value = cookies[name];
