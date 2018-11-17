@@ -39,7 +39,7 @@ const loadAndSortTowns = async () => {
         return data;
     }
 
-    throw new Error('unable to get towns');
+    throw new Error('Не удалось загрузить города');
 };
 
 export { delayPromise, loadAndSortTowns };

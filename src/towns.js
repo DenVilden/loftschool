@@ -47,7 +47,7 @@ const onLoad = () => {
             filterBlock.style.display = 'block';
             loadingBlock.textContent = '';
         })
-        .catch(() => {
+        .catch(error => {
             const retryButton = document.createElement('button');
 
             retryButton.textContent = 'Повторить';
@@ -57,7 +57,7 @@ const onLoad = () => {
                 homeworkContainer.removeChild(retryButton);
             });
 
-            loadingBlock.textContent = 'Не удалось загрузить города';
+            loadingBlock.textContent = error.message;
         });
 };
 
