@@ -70,9 +70,7 @@ const setCookie = (name, value, days = 7) => {
 
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
 
-    const expires = `expires=${date.toGMTString()}`;
-
-    document.cookie = `${name}=${value};${expires};`;
+    document.cookie = `${name}=${value};expires=${date.toGMTString()};`;
 };
 
 // get the dom element for an individual cookie
