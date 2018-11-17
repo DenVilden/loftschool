@@ -43,7 +43,7 @@ describe('ДЗ 6.2 - Фильтр городов', () => {
                         assert(Array.isArray(towns), 'должен быть массивом');
                         assert(towns.length == 50, 'неверный размер массива');
                         towns.forEach((town, i, towns) => {
-                            assert(town.hasOwnProperty('name'), 'город должен иметь свойтво name');
+                            assert(town.hasOwnProperty('name'), 'город должен иметь свойство name');
 
                             if (i) {
                                 assert(towns[i - 1].name < town.name, 'города должны быть отсортированы');
@@ -58,7 +58,7 @@ describe('ДЗ 6.2 - Фильтр городов', () => {
     });
 
     describe('Интеграционное тестирование', () => {
-        it('на старнице должны быть элементы с нужными id', () => {
+        it('на странице должны быть элементы с нужными id', () => {
             loadingBlock = homeworkContainer.querySelector('#loading-block');
             filterBlock = homeworkContainer.querySelector('#filter-block');
             filterInput = homeworkContainer.querySelector('#filter-input');

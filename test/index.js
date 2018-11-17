@@ -42,7 +42,7 @@ describe('ДЗ 6.1 - Асинхронность и работа с сетью', 
                     assert(Array.isArray(towns), 'должен быть массивом');
                     assert(towns.length == 50, 'неверный размер массива');
                     towns.forEach((town, i, towns) => {
-                        assert(town.hasOwnProperty('name'), 'город должен иметь свойтво name');
+                        assert(town.hasOwnProperty('name'), 'город должен иметь свойство name');
 
                         if (i) {
                             assert(towns[i - 1].name < town.name, 'города должны быть отсортированы');

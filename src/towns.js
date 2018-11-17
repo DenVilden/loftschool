@@ -17,12 +17,12 @@
  *** Часть со звездочкой ***
  Если загрузка городов не удалась (например, отключился интернет или сервер вернул ошибку),
  то необходимо показать надпись "Не удалось загрузить города" и кнопку "Повторить".
- При клике на кнопку, процесс загруки повторяется заново
+ При клике на кнопку, процесс загрузки повторяется заново
  */
 
 /*
  homeworkContainer - это контейнер для всех ваших домашних заданий
- Если вы создаете новые html-элементы и добавляете их на страницу, то дабавляйте их только в этот контейнер
+ Если вы создаете новые html-элементы и добавляете их на страницу, то добавляйте их только в этот контейнер
 
  Пример:
    const newDiv = document.createElement('div');
@@ -35,29 +35,33 @@ let towns = [];
 /*
  Функция должна вернуть Promise, который должен быть разрешен с массивом городов в качестве значения
 
- Массив городов пожно получить отправив асинхронный запрос по адресу
+ Массив городов можно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 
-loadTowns()
-    .then(data => {
-        towns = data;
+const onLoad = () => {
+    loadTowns()
+        .then(data => {
+            towns = data;
 
-        filterBlock.style.display = 'block';
-        loadingBlock.textContent = '';
-    })
-    .catch(() => {
-        const retryButton = document.createElement('button');
+            filterBlock.style.display = 'block';
+            loadingBlock.textContent = '';
+        })
+        .catch(() => {
+            const retryButton = document.createElement('button');
 
-        retryButton.textContent = 'Повторить';
-        homeworkContainer.appendChild(retryButton);
-        retryButton.addEventListener('click', () => {
-            loadingBlock.textContent = 'Загрузка...';
-            loadTowns();
+            retryButton.textContent = 'Повторить';
+            homeworkContainer.appendChild(retryButton);
+            retryButton.addEventListener('click', () => {
+                onLoad();
+                homeworkContainer.removeChild(retryButton);
+            });
+
+            loadingBlock.textContent = 'Не удалось загрузить города';
         });
+};
 
-        loadingBlock.textContent = 'Не удалось загрузить города';
-    });
+onLoad();
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
