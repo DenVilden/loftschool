@@ -55,13 +55,15 @@ addBlock.addEventListener('submit', evt => {
 const getCookies = () => document.cookie.split('; ').reduce((prev, current) => {
     const [name, value] = current.split('=');
 
-    prev[name] = value;
+    if (current.length) {
+        prev[name] = value;
+    }
 
     return prev;
 }, {});
 
 const setCookie = (name, value, days = 7) => {
-    // do nothing if either no name and value provided
+    // do nothing if either no name or value provided
     if (!name || !value) {
         return;
     }
@@ -110,7 +112,7 @@ const renderCookies = () => {
 
     // filter cookies based on input value
     for (const name in cookies) {
-        if (name && cookies.hasOwnProperty(name)) {
+        if (cookies.hasOwnProperty(name)) {
             const value = cookies[name];
 
             if (searchCookies(name) || searchCookies(value)) {
@@ -122,11 +124,9 @@ const renderCookies = () => {
     listTable.innerHTML = '';
 
     // render element for each cookie
-    if (Object.keys(filteredCookies).length) {
-        for (const name in filteredCookies) {
-            if (filteredCookies.hasOwnProperty(name)) {
-                listTable.appendChild(generateCookiesDOM(name, filteredCookies[name]));
-            }
+    for (const name in filteredCookies) {
+        if (filteredCookies.hasOwnProperty(name)) {
+            listTable.appendChild(generateCookiesDOM(name, filteredCookies[name]));
         }
     }
 };
