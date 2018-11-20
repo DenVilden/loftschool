@@ -1,11 +1,11 @@
+const rules = require('./webpack.config.rules');
+const fs = require('fs');
+const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const rules = require('./webpack.config.rules');
-const fs = require('fs');
-const path = require('path');
 
 const root = path.resolve('src');
 const files = fs.readdirSync(root).reduce(
@@ -69,11 +69,7 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: [
-                                autoprefixer({
-                                    browsers: ['ie 11']
-                                })
-                            ]
+                            plugins: [autoprefixer()]
                         }
                     },
                     'sass-loader'

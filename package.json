@@ -15,6 +15,11 @@
   },
   "author": "",
   "license": "MIT",
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "IE 11"
+  ],
   "dependencies": {
     "@babel/core": "^7.1.6",
     "@babel/plugin-transform-runtime": "^7.1.0",
@@ -29,7 +34,7 @@
     "handlebars-loader": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.4",
-    "normalize.css": "^8.0.1",
+    "sanitize.css": "^8.0.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.26.0",
     "webpack-dev-server": "^3.1.10"
