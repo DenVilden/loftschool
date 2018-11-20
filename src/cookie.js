@@ -108,27 +108,14 @@ const searchCookies = fullName => fullName.toLowerCase().includes(filterNameInpu
 const renderCookies = () => {
     const cookies = getCookies();
 
-    const filteredCookies = {};
+    Object.keys(cookies).forEach(name => {
+        const value = cookies[name];
 
-    // filter cookies based on input value
-    for (const name in cookies) {
-        if (cookies.hasOwnProperty(name)) {
-            const value = cookies[name];
-
-            if (searchCookies(name) || searchCookies(value)) {
-                filteredCookies[name] = value;
-            }
+        // filter cookies based on input value
+        if (searchCookies(name) || searchCookies(value)) {
+            listTable.appendChild(generateCookiesDOM(name, value));
         }
-    }
-
-    listTable.innerHTML = '';
-
-    // render element for each cookie
-    for (const name in filteredCookies) {
-        if (filteredCookies.hasOwnProperty(name)) {
-            listTable.appendChild(generateCookiesDOM(name, filteredCookies[name]));
-        }
-    }
+    });
 };
 
 renderCookies();
