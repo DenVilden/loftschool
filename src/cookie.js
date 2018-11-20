@@ -108,6 +108,8 @@ const searchCookies = fullName => fullName.toLowerCase().includes(filterNameInpu
 const renderCookies = () => {
     const cookies = getCookies();
 
+    listTable.innerHTML = '';
+
     Object.keys(cookies).forEach(name => {
         const value = cookies[name];
 
