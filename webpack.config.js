@@ -67,12 +67,12 @@ module.exports = (env, options) => {
                     use: isProduction
                         ? [
                             MiniCssExtractPlugin.loader,
-                            'css-loader',
+                            { loader: 'css-loader', options: { sourceMap: true } },
                             {
                                 loader: 'postcss-loader',
-                                options: { plugins: [autoprefixer()] }
+                                options: { plugins: [autoprefixer()], sourceMap: true }
                             },
-                            'sass-loader'
+                            { loader: 'sass-loader', options: { sourceMap: true } }
                         ]
                         : ['style-loader', 'css-loader', 'sass-loader']
                 }
@@ -83,7 +83,14 @@ module.exports = (env, options) => {
                 new MiniCssExtractPlugin({
                     filename: 'styles.css'
                 }),
-                new OptimizeCSSAssetsPlugin(),
+                new OptimizeCSSAssetsPlugin({
+                    cssProcessorOptions: {
+                        map: {
+                            inline: false,
+                            annotation: true
+                        }
+                    }
+                }),
                 ...html,
                 new CleanWebpackPlugin(['dist'])
             ]
