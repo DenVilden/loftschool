@@ -49,8 +49,8 @@ if (!html.length || !files['.hbs'].find(file => file.name === 'index')) {
     );
 }
 
-module.exports = (...env) => {
-    const isProduction = env.mode === 'production';
+module.exports = (env, options) => {
+    const isProduction = options.mode === 'production';
 
     return {
         entry: entries,
@@ -81,11 +81,7 @@ module.exports = (...env) => {
                 new MiniCssExtractPlugin({
                     filename: 'styles.css'
                 }),
-                new OptimizeCSSAssetsPlugin({
-                    cssProcessorPluginOptions: {
-                        preset: ['default', { discardComments: { removeAll: true } }]
-                    }
-                }),
+                new OptimizeCSSAssetsPlugin(),
                 ...html,
                 new CleanWebpackPlugin(['dist'])
             ]
