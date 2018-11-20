@@ -64,15 +64,17 @@ module.exports = (env, options) => {
                 ...rules,
                 {
                     test: /\.(css|scss)$/,
-                    use: [
-                        isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                        'css-loader',
-                        {
-                            loader: 'postcss-loader',
-                            options: { plugins: [autoprefixer()] }
-                        },
-                        'sass-loader'
-                    ]
+                    use: isProduction
+                        ? [
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                            {
+                                loader: 'postcss-loader',
+                                options: { plugins: [autoprefixer()] }
+                            },
+                            'sass-loader'
+                        ]
+                        : ['style-loader', 'css-loader', 'sass-loader']
                 }
             ]
         },
