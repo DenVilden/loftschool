@@ -6,8 +6,8 @@
   "scripts": {
     "codestyle": "eslint src",
     "travis": "yarn run codestyle && yarn test",
-    "build": "webpack --progress --colors",
-    "watch": "webpack-dev-server --progress --colors --open",
+    "build": "webpack --mode production --open",
+    "watch": "webpack-dev-server --mode development ",
     "start": "yarn run watch",
     "test": "karma start",
     "cover": "istanbul cover _mocha -- test/*.js",

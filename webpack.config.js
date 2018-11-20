@@ -43,46 +43,52 @@ const html = files['.hbs']
 if (!html.length || !files['.hbs'].find(file => file.name === 'index')) {
     html.push(
         new HtmlPlugin({
-            title: 'index',
-            template: 'index.hbs',
-            chunks: ['index']
+            title: './index.hbs',
+            template: 'index.hbs'
         })
     );
 }
 
-module.exports = {
-    entry: entries,
-    output: {
-        filename: '[name].[hash].js',
-        path: path.resolve('dist')
-    },
-    mode: 'development',
-    devtool: 'source-map',
-    module: {
-        rules: [
-            ...rules,
-            {
-                test: /\.(css|scss)$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: [autoprefixer()]
-                        }
-                    },
-                    'sass-loader'
-                ]
-            }
-        ]
-    },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css'
-        }),
-        new OptimizeCSSAssetsPlugin(),
-        ...html,
-        new CleanWebpackPlugin(['dist'])
-    ]
+module.exports = (...env) => {
+    const isProduction = env.mode === 'production';
+
+    return {
+        entry: entries,
+        output: {
+            filename: 'bundle.js',
+            path: path.resolve('dist')
+        },
+        devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map',
+        module: {
+            rules: [
+                ...rules,
+                {
+                    test: /\.(css|scss)$/,
+                    use: [
+                        isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+                        'css-loader',
+                        {
+                            loader: 'postcss-loader',
+                            options: { plugins: [autoprefixer()] }
+                        },
+                        'sass-loader'
+                    ]
+                }
+            ]
+        },
+        plugins: isProduction
+            ? [
+                new MiniCssExtractPlugin({
+                    filename: 'styles.css'
+                }),
+                new OptimizeCSSAssetsPlugin({
+                    cssProcessorPluginOptions: {
+                        preset: ['default', { discardComments: { removeAll: true } }]
+                    }
+                }),
+                ...html,
+                new CleanWebpackPlugin(['dist'])
+            ]
+            : [...html]
+    };
 };
