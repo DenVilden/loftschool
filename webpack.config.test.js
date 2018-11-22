@@ -3,7 +3,7 @@ const rules = require('./webpack.config.rules');
 
 module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       ...rules,

@@ -45,6 +45,14 @@ if (!html.length || !files['.hbs'].find(file => file.name === 'index')) {
     new HtmlPlugin({
       title: './index.hbs',
       template: 'index.hbs',
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeOptionalTags: true,
+        removeRedundantAttributes: true,
+        removeAttributeQuotes: true,
+        removeTagWhitespace: true,
+      },
     }),
   );
 }
@@ -55,7 +63,7 @@ module.exports = (env, options) => {
   return {
     entry: entries,
     output: {
-      filename: 'bundle.js',
+      filename: 'bundle.[hash].js',
       path: path.resolve('dist'),
     },
     devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map',
@@ -84,10 +92,12 @@ module.exports = (env, options) => {
           filename: 'styles.css',
         }),
         new OptimizeCSSAssetsPlugin({
+          cssProcessorPluginOptions: {
+            preset: ['default', { discardComments: { removeAll: true } }],
+          },
           cssProcessorOptions: {
             map: {
               inline: false,
-              annotation: true,
             },
           },
         }),
