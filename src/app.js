@@ -1,2 +1,2 @@
 import 'sanitize.css';
-import './styles/styles.scss';
+import './stylesheets/main.scss';
